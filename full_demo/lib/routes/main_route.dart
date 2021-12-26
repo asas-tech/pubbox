@@ -20,17 +20,25 @@ class MainRoute extends VRouteElementBuilder {
             // Navigation Routes
             for (DrawerItem item in DrawerConfig().drawerList)
               if (item.menuItems != null)
-                for (MenuItem menuItem in item.menuItems!)
-                  VWidget(
-                      stackedRoutes: [
-                        if (menuItem.stackedRoutes != null)
-                          for (MenuItem? stackedItem in menuItem.stackedRoutes!)
-                            VWidget(
-                                path: stackedItem?.routeName ?? '',
-                                widget: stackedItem?.child ?? Container())
-                      ],
-                      path: menuItem.routeName,
-                      widget: menuItem.child ?? const SizedBox())
+                VWidget(
+                    path: item.routeName,
+                    widget: item.child ?? const SizedBox(),
+                    stackedRoutes: [
+                      for (MenuItem menuItem in item.menuItems!)
+                        VWidget(
+                          path: '${item.routeName}${menuItem.routeName}',
+                          widget: menuItem.child ?? const SizedBox(),
+                          stackedRoutes: [
+                            if (menuItem.stackedRoutes != null)
+                              for (MenuItem? stackedItem
+                                  in menuItem.stackedRoutes!)
+                                VWidget(
+                                    path:
+                                        '${item.routeName}${menuItem.routeName}${stackedItem?.routeName ?? ''}',
+                                    widget: stackedItem?.child ?? Container())
+                          ],
+                        )
+                    ])
           ])
     ];
   }

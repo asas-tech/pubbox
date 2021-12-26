@@ -11,12 +11,17 @@ class SideBar extends StatefulWidget {
     this.isCollapsed = true,
     this.drawerWidth = 260,
     this.collapsedDrawerWidth = 70,
+    this.appName,
+    this.logo,
   }) : super(key: key);
 
   final List<DrawerItem> drawerList;
   final bool isCollapsed;
   final double drawerWidth;
   final double collapsedDrawerWidth;
+  final String? appName;
+  final Widget? logo;
+
   @override
   _SideBarState createState() => _SideBarState();
 }
@@ -58,7 +63,7 @@ class _SideBarState extends State<SideBar> {
                     padding: const EdgeInsets.all(12.0),
                     child: Row(
                       children: [
-                        const Icon(Icons.smart_button),
+                        widget.logo ?? const FlutterLogo(),
                         Expanded(
                           child: SizedBox(
                               height: 65,
@@ -66,10 +71,10 @@ class _SideBarState extends State<SideBar> {
                                 children: [
                                   Expanded(
                                     child: AnimatedCrossFade(
-                                      firstChild: const Text(
-                                        'Tfrheda Dashboard',
+                                      firstChild: Text(
+                                        widget.appName ?? '',
                                         maxLines: 1,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 18,
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
@@ -176,14 +181,21 @@ class _BuildHeaderState extends State<_BuildHeader>
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).primaryColor,
+      color: Colors.transparent,
       child: Column(
         children: [
           InkWell(
             onTap: () {
-              _isExpanded = !_isExpanded;
-              _isExpanded ? _controller.forward() : _controller.reverse();
-              setState(() {});
+              if (widget.menuItems != null &&
+                  (widget.menuItems?.isNotEmpty ?? false)) {
+                _isExpanded = !_isExpanded;
+                _isExpanded ? _controller.forward() : _controller.reverse();
+                setState(() {});
+              } else {
+                setState(() {
+                  context.vRouter.to(widget.item.routeName);
+                });
+              }
             },
             hoverColor: Colors.black26.withOpacity(0.5),
             child: AnimatedCrossFade(
@@ -196,6 +208,10 @@ class _BuildHeaderState extends State<_BuildHeader>
                   )),
               secondChild: Container(
                 height: 65,
+                color: context.vRouter.path.split('/')[1] ==
+                        widget.item.routeName.substring(1)
+                    ? Colors.white.withOpacity(0.1)
+                    : Colors.transparent,
                 alignment: AlignmentDirectional.centerStart,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
@@ -210,13 +226,16 @@ class _BuildHeaderState extends State<_BuildHeader>
                         style: const TextStyle(
                             color: Colors.white60, fontSize: 16)),
                     const Spacer(),
-                    RotationTransition(
-                      turns: Tween(begin: 0.0, end: 0.25).animate(_controller),
-                      child: const Icon(
-                        CupertinoIcons.chevron_forward,
-                        color: Colors.white60,
-                      ),
-                    )
+                    if (widget.menuItems != null &&
+                        (widget.menuItems?.isNotEmpty ?? false))
+                      RotationTransition(
+                        turns:
+                            Tween(begin: 0.0, end: 0.25).animate(_controller),
+                        child: const Icon(
+                          CupertinoIcons.chevron_forward,
+                          color: Colors.white60,
+                        ),
+                      )
                   ],
                 ),
               ),
@@ -234,8 +253,8 @@ class _BuildHeaderState extends State<_BuildHeader>
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: widget.menuItems!.length,
                       itemBuilder: (context, index) => _BuildTile(
+                            mainRoute: widget.item.routeName,
                             item: widget.menuItems![index],
-                            onTap: () {},
                             isCollapsed: widget.isCollapsed,
                             isForcedUnCollapsed: widget.isForcedUnCollapsed,
                           ))
@@ -255,14 +274,14 @@ class _BuildTile extends StatefulWidget {
   const _BuildTile(
       {Key? key,
       required this.item,
-      required this.onTap,
       required this.isCollapsed,
-      required this.isForcedUnCollapsed})
+      required this.isForcedUnCollapsed,
+      this.mainRoute})
       : super(key: key);
 
   final MenuItem item;
+  final String? mainRoute;
 
-  final void Function() onTap;
   final bool isCollapsed, isForcedUnCollapsed;
   @override
   State<_BuildTile> createState() => _BuildTileState();
@@ -274,15 +293,15 @@ class _BuildTileState extends State<_BuildTile> {
     return InkWell(
       onTap: () {
         setState(() {
-          context.vRouter.to(widget.item.routeName);
+          context.vRouter.to('${widget.mainRoute}${widget.item.routeName}');
         });
-        widget.onTap();
       },
       hoverColor: Colors.black26.withOpacity(0.5),
       child: Container(
         height: 65,
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        color: context.vRouter.path == widget.item.routeName
+        color: context.vRouter.path.split('/').last.trim() ==
+                widget.item.routeName.substring(1)
             ? Colors.white.withOpacity(0.1)
             : Colors.transparent,
         child: Row(

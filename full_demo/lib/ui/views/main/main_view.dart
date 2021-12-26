@@ -17,6 +17,7 @@ class MainView extends StatelessWidget {
               : SideBar(
                   drawerList: DrawerConfig().drawerList,
                   isCollapsed: false,
+                  appName: 'Dashboard',
                 ),
           Expanded(
               child: CustomScaffold(
