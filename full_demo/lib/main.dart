@@ -14,20 +14,17 @@ import 'ui/shared/app_theme.dart';
 import 'ui/shared/setup/bottomsheet/setup_bottomsheet_ui.dart';
 import 'ui/shared/setup/dialogs/setup_dialog_ui.dart';
 import 'ui/shared/setup/snackbar/setup_snackbar_ui.dart';
-import 'ui/views/auth/login_or_register/login_or_register_view.dart';
-import 'ui/views/custom_pages/unknown_path.dart';
 
 void main() async {
-  // await Firebase.initializeApp();
   await ThemeManager.initialise();
 
   await configureInjection();
-
   setupDialogUi();
   setupSnackbarUi();
   setupBottomSheetUi();
-  WidgetsFlutterBinding.ensureInitialized();
 
+  WidgetsFlutterBinding.ensureInitialized();
+  // to make sure that shared preferences are initialized
   await GetIt.I.isReady<SharedPreferenceService>();
   // await GetIt.I.isReady<ApiHelper>();
 
@@ -39,69 +36,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // FirebaseAnalytics analytics = FirebaseAnalytics();
     final _prefs = locator<SharedPreferenceService>();
     return GestureDetector(
       onTap: () {
+        // for ios to remove keyboard focus
         FocusScopeNode currentFocus = FocusScope.of(context);
-
         if (!currentFocus.hasPrimaryFocus &&
             currentFocus.focusedChild != null) {
           currentFocus.focusedChild?.unfocus();
         }
       },
       child: ThemeBuilder(
+        // to setup light theme
         lightTheme: lightTheme(context),
+        //to setup dark theme
         darkTheme: darkTheme(context),
         defaultThemeMode: ThemeMode.light,
         builder: (context, regularTheme, darkTheme, themeMode) => VRouter(
+          //first route
           initialUrl: '/login',
           buildTransition: (animation1, _, child) =>
               FadeTransition(opacity: animation1, child: child),
           transitionDuration: const Duration(milliseconds: 100),
-          routes: [
-            VGuard(
-              beforeEnter: (vRedirector) async {
-                if (!_prefs.isLoggedIn) {
-                  vRedirector.to('/login');
-                }
-              },
-              stackedRoutes: [
-                MainRoute(),
-              ],
-            ),
-
-            VGuard(
-              beforeEnter: (vRedirector) async {
-                if (_prefs.isLoggedIn) {
-                  vRedirector.to('/');
-                }
-              },
-              stackedRoutes: [
-                VWidget(
-                  path: '/login',
-                  widget: Builder(
-                    builder: (context) => LoginOrRegisterView(
-                      // This function is called when login button is pressed
-                      onLogin: (context) {
-                        _prefs.isLoggedIn = true;
-                        context.vRouter.to('/');
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            // if the url is not found show the 404 not found page
-            VWidget(
-                path: '*',
-                widget: UnknownPathWidget(
-                  goToHome: (context) {
-                    context.vRouter.to('/');
-                  },
-                ))
-          ],
+          routes: [MainRoute(_prefs)],
+          //Todo : change app name
           title: 'Dashboard',
           debugShowCheckedModeBanner: false,
           theme: regularTheme,

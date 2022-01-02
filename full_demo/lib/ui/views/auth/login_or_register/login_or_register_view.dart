@@ -52,7 +52,7 @@ class LoginOrRegisterView extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        "Copyright ASAS TECH 2022",
+                        "Copyright ASAS-TECH 2022",
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,

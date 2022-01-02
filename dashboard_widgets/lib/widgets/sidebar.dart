@@ -13,6 +13,7 @@ class SideBar extends StatefulWidget {
     this.collapsedDrawerWidth = 70,
     this.appName,
     this.logo,
+    this.isRtl = false,
   }) : super(key: key);
 
   final List<DrawerItem> drawerList;
@@ -21,6 +22,7 @@ class SideBar extends StatefulWidget {
   final double collapsedDrawerWidth;
   final String? appName;
   final Widget? logo;
+  final bool isRtl;
 
   @override
   _SideBarState createState() => _SideBarState();
@@ -49,7 +51,7 @@ class _SideBarState extends State<SideBar> {
               });
             },
             child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 150),
                 width: _isForcedUnCollapsed
                     ? widget.drawerWidth
                     : _isCollapsed
@@ -59,72 +61,82 @@ class _SideBarState extends State<SideBar> {
                   color: Theme.of(context).primaryColor,
                 ),
                 child: ListView(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      children: [
-                        widget.logo ?? const FlutterLogo(),
-                        Expanded(
-                          child: SizedBox(
-                              height: 65,
+                  SizedBox(
+                      height: 65,
+                      child: Center(
+                        child: AnimatedCrossFade(
+                            firstChild: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                textDirection: widget.isRtl == true
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
                                 children: [
+                                  SizedBox(
+                                      height: 24,
+                                      width: 24,
+                                      child:
+                                          widget.logo ?? const FlutterLogo()),
+                                  horizontalSpaceSmall,
                                   Expanded(
-                                    child: AnimatedCrossFade(
-                                      firstChild: Text(
-                                        widget.appName ?? '',
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      secondChild: const SizedBox(),
-                                      crossFadeState:
-                                          _isCollapsed && !_isForcedUnCollapsed
-                                              ? CrossFadeState.showSecond
-                                              : CrossFadeState.showFirst,
-                                      secondCurve:
-                                          Curves.fastLinearToSlowEaseIn,
-                                      reverseDuration:
-                                          const Duration(milliseconds: 600),
-                                      duration:
-                                          const Duration(milliseconds: 50),
+                                    child: Text(
+                                      widget.appName ?? '',
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  )
+                                  ),
+                                  if (!_isCollapsed)
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _isForcedUnCollapsed =
+                                              !_isForcedUnCollapsed;
+                                          _isCollapsed = !_isForcedUnCollapsed;
+                                        });
+                                      },
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                width: 2,
+                                                color: Colors.white70)),
+                                        child: AnimatedContainer(
+                                            duration: const Duration(
+                                                milliseconds: 10),
+                                            width:
+                                                _isForcedUnCollapsed ? 20 : 0,
+                                            alignment: Alignment.center,
+                                            margin: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: _isForcedUnCollapsed
+                                                    ? Colors.white70
+                                                    : Colors.transparent)),
+                                      ),
+                                    )
                                 ],
-                              )),
-                        ),
-                        if (!_isCollapsed)
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                _isForcedUnCollapsed = !_isForcedUnCollapsed;
-                                _isCollapsed = !_isForcedUnCollapsed;
-                              });
-                            },
-                            child: Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      width: 2, color: Colors.white70)),
-                              child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 10),
-                                  width: _isForcedUnCollapsed ? 20 : 0,
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: _isForcedUnCollapsed
-                                          ? Colors.white70
-                                          : Colors.transparent)),
+                              ),
                             ),
-                          )
-                      ],
-                    ),
-                  ),
+                            secondChild: SizedBox(
+                                height: 28,
+                                width: 28,
+                                child: widget.logo ?? const FlutterLogo()),
+                            crossFadeState:
+                                _isCollapsed && !_isForcedUnCollapsed
+                                    ? CrossFadeState.showSecond
+                                    : CrossFadeState.showFirst,
+                            secondCurve: Curves.fastLinearToSlowEaseIn,
+                            reverseDuration: const Duration(milliseconds: 150),
+                            duration: const Duration(milliseconds: 150)),
+                      )),
                   for (DrawerItem item in widget.drawerList)
                     _BuildHeader(
                       item: item,
@@ -132,6 +144,7 @@ class _SideBarState extends State<SideBar> {
                       isCollapsed: _isCollapsed,
                       isForcedUnCollapsed: _isForcedUnCollapsed,
                       isFirst: item.isFirst,
+                      isRtl: widget.isRtl,
                     )
                 ]))));
   }
@@ -144,12 +157,13 @@ class _BuildHeader extends StatefulWidget {
       required this.menuItems,
       required this.isCollapsed,
       required this.isForcedUnCollapsed,
-      this.isFirst = false})
+      this.isFirst = false,
+      required this.isRtl})
       : super(key: key);
   final DrawerItem item;
   final List<MenuItem>? menuItems;
   final bool isCollapsed, isForcedUnCollapsed;
-  final bool isFirst;
+  final bool isFirst, isRtl;
 
   @override
   State<_BuildHeader> createState() => _BuildHeaderState();
@@ -201,6 +215,10 @@ class _BuildHeaderState extends State<_BuildHeader>
             child: AnimatedCrossFade(
               firstChild: Container(
                   height: 65,
+                  color: context.vRouter.path.split('/')[1] ==
+                          widget.item.routeName.substring(1)
+                      ? Colors.white.withOpacity(0.1)
+                      : Colors.transparent,
                   alignment: AlignmentDirectional.center,
                   child: Icon(
                     widget.item.icon ?? CupertinoIcons.ellipsis,
@@ -215,6 +233,9 @@ class _BuildHeaderState extends State<_BuildHeader>
                 alignment: AlignmentDirectional.centerStart,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
+                  textDirection: widget.isRtl == true
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
@@ -257,6 +278,7 @@ class _BuildHeaderState extends State<_BuildHeader>
                             item: widget.menuItems![index],
                             isCollapsed: widget.isCollapsed,
                             isForcedUnCollapsed: widget.isForcedUnCollapsed,
+                            isRtl: widget.isRtl,
                           ))
                   : const SizedBox(),
               secondChild: const SizedBox(),
@@ -276,13 +298,14 @@ class _BuildTile extends StatefulWidget {
       required this.item,
       required this.isCollapsed,
       required this.isForcedUnCollapsed,
-      this.mainRoute})
+      this.mainRoute,
+      required this.isRtl})
       : super(key: key);
 
   final MenuItem item;
   final String? mainRoute;
 
-  final bool isCollapsed, isForcedUnCollapsed;
+  final bool isCollapsed, isForcedUnCollapsed, isRtl;
   @override
   State<_BuildTile> createState() => _BuildTileState();
 }
@@ -297,35 +320,48 @@ class _BuildTileState extends State<_BuildTile> {
         });
       },
       hoverColor: Colors.black26.withOpacity(0.5),
-      child: Container(
-        height: 65,
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        color: context.vRouter.path.split('/').last.trim() ==
-                widget.item.routeName.substring(1)
-            ? Colors.white.withOpacity(0.1)
-            : Colors.transparent,
-        child: Row(
-          children: [
-            const Icon(
-              CupertinoIcons.graph_circle,
+      child: AnimatedCrossFade(
+        firstChild: Container(
+            height: 65,
+            color: context.vRouter.path.split('/')[1] ==
+                    widget.item.routeName.substring(1)
+                ? Colors.white.withOpacity(0.1)
+                : Colors.transparent,
+            alignment: AlignmentDirectional.center,
+            child: Icon(
+              widget.item.icon ?? CupertinoIcons.circle,
+              color: Colors.white60,
               size: 16,
-              color: Colors.white,
-            ),
-            horizontalSpaceSmall,
-            AnimatedCrossFade(
-              firstChild: const SizedBox(),
-              secondChild: Text(
+            )),
+        secondChild: Container(
+          height: 65,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          color: context.vRouter.path.split('/').last.trim() ==
+                  widget.item.routeName.substring(1)
+              ? Colors.white.withOpacity(0.1)
+              : Colors.transparent,
+          child: Row(
+            textDirection:
+                widget.isRtl == true ? TextDirection.rtl : TextDirection.ltr,
+            children: [
+              Icon(
+                widget.item.icon ?? CupertinoIcons.circle,
+                size: 16,
+                color: Colors.white,
+              ),
+              horizontalSpaceSmall,
+              Text(
                 widget.item.title,
                 style: const TextStyle(color: Colors.white),
               ),
-              crossFadeState: widget.isCollapsed && !widget.isForcedUnCollapsed
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-              reverseDuration: const Duration(milliseconds: 100),
-              duration: const Duration(milliseconds: 100),
-            )
-          ],
+            ],
+          ),
         ),
+        crossFadeState: widget.isCollapsed && !widget.isForcedUnCollapsed
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        reverseDuration: const Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 100),
       ),
     );
   }
