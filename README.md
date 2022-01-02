@@ -14,9 +14,9 @@ A Fully Responsive Customizable Dashboard for Flutter Developers.
   For help getting started with Flutter, view flutter's online
   [documentation](http://flutter.io/).
   
-  Download project from [Github](https://github.com/asas-tech/pubbox) .
-  Check out full demo for example.
-  For your project use the starter-kit 
+  - Download project from [Github](https://github.com/asas-tech/pubbox) .
+  - Check out full demo for example.
+  - For your project use the starter-kit 
   
   ## Getting Started
   For help on using the dashboard widgets, view the [documentation](https://asas-tech.github.io/pubbox-docs).
