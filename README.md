@@ -13,7 +13,6 @@ A Fully Responsive Customizable Dashboard for Flutter Developers.
 
   For help getting started with Flutter, view our online
   [documentation](http://flutter.io/).
-  ![Image](image/fa.png)
   
   Download project from [Github](https://github.com/asas-tech/pubbox) .
   Check out full demo for example.
