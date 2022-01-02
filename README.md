@@ -7,7 +7,7 @@ A Fully Responsive Customizable Dashboard for Flutter Developers.
 # Prerequisite
   ## Required
   - Basic Flutter knowledge
-  ## Familiarities
+  ## Preferred knowledge
   - [Stacked Archeticture](https://pub.dev/packages/stacked)  
   - Dependency Injection [get-it package](https://pub.dev/packages/get_it) & [injectable package](https://pub.dev/packages/injectable)
   
