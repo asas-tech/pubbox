@@ -1,3 +1,5 @@
+![logo-2x](https://user-images.githubusercontent.com/31656833/147883053-a9782c02-33a9-4863-8b80-2723bbb40d2c.png)
+
 # pubbox
 Flutter Dashboard Template
 A Fully Responsive Customizable Dashboard for Flutter Developers.
