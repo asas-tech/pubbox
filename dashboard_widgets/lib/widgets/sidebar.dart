@@ -81,16 +81,15 @@ class _SideBarState extends State<SideBar> {
                                       child:
                                           widget.logo ?? const FlutterLogo()),
                                   horizontalSpaceSmall,
-                                  Expanded(
-                                    child: Text(
-                                      widget.appName ?? '',
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                  Text(
+                                    widget.appName ?? '',
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
+                                  const Spacer(),
                                   if (!_isCollapsed)
                                     InkWell(
                                       onTap: () {
@@ -251,9 +250,12 @@ class _BuildHeaderState extends State<_BuildHeader>
                         (widget.menuItems?.isNotEmpty ?? false))
                       RotationTransition(
                         turns:
-                            Tween(begin: 0.0, end: 0.25).animate(_controller),
-                        child: const Icon(
-                          CupertinoIcons.chevron_forward,
+                            Tween(begin: 0.0, end: widget.isRtl ? -0.25 : 0.25)
+                                .animate(_controller),
+                        child: Icon(
+                          widget.isRtl
+                              ? CupertinoIcons.chevron_back
+                              : CupertinoIcons.chevron_forward,
                           color: Colors.white60,
                         ),
                       )

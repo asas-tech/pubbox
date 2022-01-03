@@ -34,7 +34,7 @@ class SharedPreferenceService {
 
   set isLoggedIn(bool value) => _saveToDisk(_loggedInKey, value);
 
-  bool get isRtl => _getFromDisk(_rtlKey) ?? false;
+  bool get isRtl => _getFromDisk(_rtlKey) ?? true;
 
   set isRtl(bool value) => _saveToDisk(_rtlKey, value);
 
