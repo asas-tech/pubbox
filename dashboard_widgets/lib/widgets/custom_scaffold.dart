@@ -35,89 +35,93 @@ class CustomScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor ?? Theme.of(context).backgroundColor,
-      drawer: Responsive.isMobile(context)
-          ? SideBar(
-              drawerList: drawerItems,
-              isCollapsed: false,
-              appName: appName,
-              logo: logo,
-            )
-          : null,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0),
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AppBar(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(12),
-                      top: Radius.circular(12),
+    return Directionality(
+      textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+      child: Scaffold(
+        backgroundColor: backgroundColor ?? Theme.of(context).backgroundColor,
+        drawer: Responsive.isMobile(context)
+            ? SideBar(
+                drawerList: drawerItems,
+                isCollapsed: false,
+                appName: appName,
+                logo: logo,
+                isRtl: isRtl,
+              )
+            : null,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(100.0),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                AppBar(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(12),
+                        top: Radius.circular(12),
+                      ),
                     ),
-                  ),
-                  elevation: 0.0,
-                  automaticallyImplyLeading: false,
-                  centerTitle: true,
-                  title: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        if (showNotification)
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 18.0),
-                            child: InkWell(
-                                onTap: () {},
-                                child: const Icon(Icons.notifications)),
-                          ),
-                        if (showUser)
-                          Row(
-                            children: [
-                              if (showUserData)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      userName ?? '',
-                                    ),
-                                    Text(
-                                      userRole ?? '',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              horizontalSpaceSmall,
-                              SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: userIcon ??
-                                    InkWell(
-                                      onTap: () {},
-                                      child: const CustomAvatar(
-                                        backgroundColor: Colors.white,
-                                        name: 'User',
+                    elevation: 0.0,
+                    centerTitle: true,
+                    title: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (showNotification)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: InkWell(
+                                  onTap: () {},
+                                  child: const Icon(Icons.notifications)),
+                            ),
+                          if (showUser)
+                            Row(
+                              children: [
+                                if (showUserData)
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        userName ?? '',
                                       ),
-                                    ),
-                              ),
-                            ],
-                          ),
-                      ],
+                                      Text(
+                                        userRole ?? '',
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                horizontalSpaceSmall,
+                                SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child: userIcon ??
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const CustomAvatar(
+                                          backgroundColor: Colors.white,
+                                          name: 'User',
+                                        ),
+                                      ),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                  backgroundColor:
-                      appbarColor ?? Theme.of(context).primaryColor),
-            ],
+                    backgroundColor:
+                        appbarColor ?? Theme.of(context).primaryColor),
+              ],
+            ),
           ),
         ),
+        body: child,
       ),
-      body: child,
     );
   }
 }

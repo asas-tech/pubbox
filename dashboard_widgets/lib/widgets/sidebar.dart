@@ -356,6 +356,12 @@ class _BuildTileState extends State<_BuildTile> {
                 widget.item.title,
                 style: const TextStyle(color: Colors.white),
               ),
+              horizontalSpaceSmall,
+              if (widget.item.label != null)
+                Text(
+                  widget.item.label ?? '',
+                  style: TextStyle(color: widget.item.labelColor, fontSize: 12),
+                ),
             ],
           ),
         ),

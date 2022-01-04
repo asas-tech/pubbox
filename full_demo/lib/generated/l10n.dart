@@ -49,6 +49,336 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `beta`
+  String get beta {
+    return Intl.message(
+      'beta',
+      name: 'beta',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coming Soon`
+  String get comingSoon {
+    return Intl.message(
+      'Coming Soon',
+      name: 'comingSoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alert`
+  String get alert {
+    return Intl.message(
+      'Alert',
+      name: 'alert',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar`
+  String get avatar {
+    return Intl.message(
+      'Avatar',
+      name: 'avatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar Group`
+  String get avatarGroup {
+    return Intl.message(
+      'Avatar Group',
+      name: 'avatarGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Badge`
+  String get badge {
+    return Intl.message(
+      'Badge',
+      name: 'badge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Breadcrumb`
+  String get breadcrumb {
+    return Intl.message(
+      'Breadcrumb',
+      name: 'breadcrumb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Button`
+  String get button {
+    return Intl.message(
+      'Button',
+      name: 'button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Button Group`
+  String get buttonGroup {
+    return Intl.message(
+      'Button Group',
+      name: 'buttonGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Button Toolbar`
+  String get buttonToolbar {
+    return Intl.message(
+      'Button Toolbar',
+      name: 'buttonToolbar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calender`
+  String get calender {
+    return Intl.message(
+      'Calender',
+      name: 'calender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Carousel`
+  String get carousel {
+    return Intl.message(
+      'Carousel',
+      name: 'carousel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Collapse`
+  String get collapse {
+    return Intl.message(
+      'Collapse',
+      name: 'collapse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dropdown`
+  String get dropdown {
+    return Intl.message(
+      'Dropdown',
+      name: 'dropdown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Embed`
+  String get embed {
+    return Intl.message(
+      'Embed',
+      name: 'embed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image`
+  String get image {
+    return Intl.message(
+      'Image',
+      name: 'image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List Group`
+  String get listGroup {
+    return Intl.message(
+      'List Group',
+      name: 'listGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Media Object`
+  String get mediaObject {
+    return Intl.message(
+      'Media Object',
+      name: 'mediaObject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Modal`
+  String get modal {
+    return Intl.message(
+      'Modal',
+      name: 'modal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nav`
+  String get nav {
+    return Intl.message(
+      'Nav',
+      name: 'nav',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Overlay`
+  String get overlay {
+    return Intl.message(
+      'Overlay',
+      name: 'overlay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pagination`
+  String get pagination {
+    return Intl.message(
+      'Pagination',
+      name: 'pagination',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pill`
+  String get pill {
+    return Intl.message(
+      'Pill',
+      name: 'pill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popover`
+  String get popover {
+    return Intl.message(
+      'Popover',
+      name: 'popover',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progress`
+  String get progress {
+    return Intl.message(
+      'Progress',
+      name: 'progress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sidebar`
+  String get sidebar {
+    return Intl.message(
+      'Sidebar',
+      name: 'sidebar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spinner`
+  String get spinner {
+    return Intl.message(
+      'Spinner',
+      name: 'spinner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tab`
+  String get tab {
+    return Intl.message(
+      'Tab',
+      name: 'tab',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Table`
+  String get table {
+    return Intl.message(
+      'Table',
+      name: 'table',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time`
+  String get time {
+    return Intl.message(
+      'Time',
+      name: 'time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Toast`
+  String get toast {
+    return Intl.message(
+      'Toast',
+      name: 'toast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Timeline`
+  String get timeline {
+    return Intl.message(
+      'Timeline',
+      name: 'timeline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tooltip`
+  String get tooltip {
+    return Intl.message(
+      'Tooltip',
+      name: 'tooltip',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -57,6 +387,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ar'),
     ];
   }
 

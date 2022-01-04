@@ -28,6 +28,8 @@ class MenuItem {
   final List<MenuItem>? menuItems;
   final IconData? icon;
   final List<MenuItem>? stackedRoutes;
+  final String? label;
+  final Color labelColor;
 
   MenuItem({
     required this.title,
@@ -36,5 +38,7 @@ class MenuItem {
     this.child,
     this.menuItems,
     this.stackedRoutes,
+    this.label,
+    this.labelColor = Colors.amberAccent,
   });
 }

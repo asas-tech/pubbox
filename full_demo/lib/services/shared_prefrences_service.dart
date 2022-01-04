@@ -38,7 +38,7 @@ class SharedPreferenceService {
 
   set isRtl(bool value) => _saveToDisk(_rtlKey, value);
 
-  String get locale => _getFromDisk(_localeKey) ?? 'en';
+  String get locale => _getFromDisk(_localeKey) ?? 'ar';
 
   set locale(String value) => _saveToDisk(_localeKey, value);
 

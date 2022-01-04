@@ -1,1 +1,37 @@
-{}
+{
+    "beta":"beta",
+    "comingSoon":"Coming Soon",
+    "alert":"Alert",
+    "avatar":"Avatar",
+    "avatarGroup":"Avatar Group",
+    "badge":"Badge",
+    "breadcrumb":"Breadcrumb",
+    "button":"Button",
+    "buttonGroup":"Button Group",
+    "buttonToolbar":"Button Toolbar",
+    "calender":"Calender",
+    "carousel":"Carousel",
+    "collapse":"Collapse",
+    "dropdown":"Dropdown",
+    "embed":"Embed",
+    "image":"Image",
+    "listGroup":"List Group",
+    "mediaObject":"Media Object",
+    "modal":"Modal",
+    "nav":"Nav",
+    "overlay":"Overlay",
+    "pagination":"Pagination",
+    "pill":"Pill",
+    "popover":"Popover",
+    "progress":"Progress",
+    "sidebar":"Sidebar",
+    "spinner":"Spinner",
+    "tab":"Tab",
+    "table":"Table",
+    "time":"Time",
+    "toast":"Toast",
+    "timeline":"Timeline",
+    "tooltip":"Tooltip"
+
+
+}
