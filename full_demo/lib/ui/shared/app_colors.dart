@@ -5,7 +5,7 @@ const String appVersion = '0.0.1';
 const Color kPrimaryColor = Color(0xff283046);
 const Color kPrimaryColorDark = Color(0xff283046);
 
-const Color kAppbarColor = Color(0xfff3a11d);
+const Color kAppbarColor = Color(0xfff3a110);
 
 const Color kAccentColor = Color(0xffffffff);
 const Color kAccentColorDark = Color(0xff283046);

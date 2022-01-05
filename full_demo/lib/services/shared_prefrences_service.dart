@@ -25,6 +25,7 @@ class SharedPreferenceService {
   static const _firstTimeKey = 'firstTime';
   static const _userThemeModeKey = 'user_theme_mode_key';
   static const _rtlKey = 'rtl_key';
+  static const _appBarKey = 'appbar_key';
 
   int? get themeIndex => _getFromDisk(_themeIndexKey);
 
@@ -34,9 +35,13 @@ class SharedPreferenceService {
 
   set isLoggedIn(bool value) => _saveToDisk(_loggedInKey, value);
 
-  bool get isRtl => _getFromDisk(_rtlKey) ?? true;
+  bool get isRtl => _getFromDisk(_rtlKey) ?? false;
 
   set isRtl(bool value) => _saveToDisk(_rtlKey, value);
+
+  bool get isFloating => _getFromDisk(_appBarKey) ?? true;
+
+  set isFloating(bool value) => _saveToDisk(_appBarKey, value);
 
   String get locale => _getFromDisk(_localeKey) ?? 'ar';
 

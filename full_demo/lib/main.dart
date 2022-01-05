@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:stacked_themes/stacked_themes.dart';
@@ -14,6 +15,7 @@ import 'ui/shared/app_theme.dart';
 import 'ui/shared/setup/bottomsheet/setup_bottomsheet_ui.dart';
 import 'ui/shared/setup/dialogs/setup_dialog_ui.dart';
 import 'ui/shared/setup/snackbar/setup_snackbar_ui.dart';
+import 'ui/views/main/settings/config/config_viewmodel.dart';
 
 void main() async {
   await ThemeManager.initialise();

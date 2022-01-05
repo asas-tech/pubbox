@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:full_demo/generated/l10n.dart';
 import 'package:full_demo/ui/views/custom_pages/coming_soon.dart';
 import 'package:full_demo/ui/views/main/home/home_view.dart';
+import 'package:full_demo/ui/views/main/settings/config/config_view.dart';
 
 class DrawerConfig {
   final String? appName = 'pubbox';
@@ -198,9 +199,7 @@ class DrawerConfig {
         isFirst: true,
         menuItems: [
           MenuItem(
-              title: 'Config',
-              routeName: '/config',
-              child: const ComingSoonWidget()),
+              title: 'Config', routeName: '/config', child: const ConfigView()),
         ]),
   ];
 }

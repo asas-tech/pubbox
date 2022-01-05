@@ -7,7 +7,8 @@ class BreadcrumbItem extends StatelessWidget {
       this.icon,
       this.onTap,
       this.isActive,
-      this.customColor})
+      this.customColor,
+      this.breadcrumbDivider})
       : super(key: key);
 
   final String? label;
@@ -15,6 +16,7 @@ class BreadcrumbItem extends StatelessWidget {
   final Function? onTap;
   final bool? isActive;
   final Color? customColor;
+  final String? breadcrumbDivider;
 
   bool checkIsActive() {
     if (onTap != null) {
@@ -28,22 +30,20 @@ class BreadcrumbItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primary = Theme.of(context).primaryColor;
     bool isActive = checkIsActive();
-    return Container(
-        child: Row(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (icon != null)
-          Icon(
-            icon,
-            color: isActive ? primary : Colors.grey,
-            size: 18,
-          ),
         if (label != null)
           Text(
-            label ?? '',
-            style: TextStyle(color: isActive ? primary : Colors.grey),
+            label != null
+                ? '$label  ${isActive ? '' : breadcrumbDivider} '
+                : '',
+            style: TextStyle(
+                color: isActive ? primary : Colors.grey,
+                fontSize: 18,
+                fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
           ),
       ],
-    ));
+    );
   }
 }
