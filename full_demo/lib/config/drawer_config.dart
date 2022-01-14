@@ -40,6 +40,7 @@ class DrawerConfig {
         title: 'Widgets',
         icon: CupertinoIcons.archivebox,
         routeName: '/widgets',
+        isFirst: true,
         menuItems: [
           MenuItem(
               title: S.current.alert,
@@ -196,7 +197,7 @@ class DrawerConfig {
         title: 'Settings',
         icon: Icons.settings,
         routeName: '/settings',
-        isFirst: true,
+        isFirst: false,
         menuItems: [
           MenuItem(
               title: 'Config', routeName: '/config', child: const ConfigView()),

@@ -39,45 +39,51 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _prefs = locator<SharedPreferenceService>();
-    return GestureDetector(
-      onTap: () {
-        // for ios to remove keyboard focus
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus &&
-            currentFocus.focusedChild != null) {
-          currentFocus.focusedChild?.unfocus();
-        }
+    return ViewModelBuilder<ConfigViewModel>.reactive(
+      disposeViewModel: false,
+      builder: (context, model, _) {
+        return GestureDetector(
+          onTap: () {
+            // for ios to remove keyboard focus
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus &&
+                currentFocus.focusedChild != null) {
+              currentFocus.focusedChild?.unfocus();
+            }
+          },
+          child: ThemeBuilder(
+            // to setup light theme
+            lightTheme: lightTheme(context),
+            //to setup dark theme
+            darkTheme: darkTheme(context),
+            defaultThemeMode: ThemeMode.light,
+            builder: (context, regularTheme, darkTheme, themeMode) => VRouter(
+              //first route
+              initialUrl: '/login',
+              buildTransition: (animation1, _, child) =>
+                  FadeTransition(opacity: animation1, child: child),
+              transitionDuration: const Duration(milliseconds: 100),
+              routes: [MainRoute(_prefs)],
+              //Todo : change app name
+              title: 'Dashboard',
+              debugShowCheckedModeBanner: false,
+              theme: regularTheme,
+              darkTheme: darkTheme,
+              themeMode: themeMode,
+              navigatorKey: StackedService.navigatorKey,
+              locale: Locale(_prefs.locale),
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
+            ),
+          ),
+        );
       },
-      child: ThemeBuilder(
-        // to setup light theme
-        lightTheme: lightTheme(context),
-        //to setup dark theme
-        darkTheme: darkTheme(context),
-        defaultThemeMode: ThemeMode.light,
-        builder: (context, regularTheme, darkTheme, themeMode) => VRouter(
-          //first route
-          initialUrl: '/login',
-          buildTransition: (animation1, _, child) =>
-              FadeTransition(opacity: animation1, child: child),
-          transitionDuration: const Duration(milliseconds: 100),
-          routes: [MainRoute(_prefs)],
-          //Todo : change app name
-          title: 'Dashboard',
-          debugShowCheckedModeBanner: false,
-          theme: regularTheme,
-          darkTheme: darkTheme,
-          themeMode: themeMode,
-          navigatorKey: StackedService.navigatorKey,
-          locale: Locale(_prefs.locale),
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-        ),
-      ),
+      viewModelBuilder: () => locator<ConfigViewModel>(),
     );
   }
 }
