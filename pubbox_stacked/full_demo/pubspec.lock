@@ -172,9 +172,11 @@ packages:
   dashboard_widgets:
     dependency: "direct main"
     description:
-      path: "../dashboard_widgets"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: ba688339f89450a51cbf688f12f860903a0deaaa
+      url: "https://github.com/asas-tech/dashboard_widgets.git"
+    source: git
     version: "0.0.1"
   dio:
     dependency: "direct main"
